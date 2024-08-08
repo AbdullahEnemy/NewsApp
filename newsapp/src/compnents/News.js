@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import "./news.css";
-
+import Loader from "./Loading";
 export class News extends Component {
   constructor() {
     super();
@@ -28,7 +28,11 @@ export class News extends Component {
       }
 
       let data = await response.json();
-      this.setState({ articles: data.articles, loading: false });
+      this.setState({
+        articles: data.articles,
+        loading: false,
+        totalArticles: response.totalResults,
+      });
     } catch (error) {
       console.error("Error fetching data: ", error);
       this.setState({ loading: false });
@@ -38,26 +42,29 @@ export class News extends Component {
   handlePrevClick = () => {
     this.setState(
       (prevState) => ({
-        page: Math.max(prevState.page - 1, 1), // Prevent going below page 1
+        page: Math.max(prevState.page - 1, 1),
       }),
       this.fetchArticles
     );
   };
 
   handleNextClick = () => {
-    this.setState(
-      (prevState) => ({
-        page: prevState.page + 1,
-      }),
-      this.fetchArticles
-    );
+    if (this.state.page + 1 > Math.ceil(this.totalResults / 9)) {
+    } else {
+      this.setState(
+        (prevState) => ({
+          page: prevState.page + 1,
+        }),
+        this.fetchArticles
+      );
+    }
   };
 
   render() {
     const { articles, loading, page } = this.state;
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     }
 
     return (

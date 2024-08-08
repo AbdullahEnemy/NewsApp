@@ -1,12 +1,39 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types"; // Uncomment if using PropTypes
+import "./Navbar.css"; // Import the CSS file
 
 export class Navbar extends Component {
-  // static propTypes = {}; // Uncomment and define propTypes if needed
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrolled: false,
+    };
+  }
+
+  handleScroll = () => {
+    if (window.scrollY > 50) {
+      this.setState({ scrolled: true });
+    } else {
+      this.setState({ scrolled: false });
+    }
+  };
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 
   render() {
+    const { scrolled } = this.state;
+
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav
+        className={`navbar navbar-expand-lg navbar-dark bg-dark ${
+          scrolled ? "scrolled" : ""
+        }`}
+      >
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             News

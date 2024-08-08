@@ -1,0 +1,31 @@
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and shadow */
+  border: none; /* Remove default card border */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Slightly scale up the card on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+}
+
+.card-img-top {
+  transition: opacity 0.3s ease; /* Smooth transition for image opacity */
+}
+
+.card:hover .card-img-top {
+  opacity: 0.8; /* Slightly fade the image on hover */
+}
+
+.card-body {
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.card:hover .card-body {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Darken the background color of the card body on hover */
+  color: #fff; /* Change text color to white */
+}
